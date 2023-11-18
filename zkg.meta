@@ -1,0 +1,5 @@
+[package]
+description = An implementation of the JA4 standard in a Zeek package.
+tags = ja4, tls, ssl, fingerprint
+script_dir = scripts
+version = main
