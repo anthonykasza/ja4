@@ -45,6 +45,7 @@ event zeek_init() &priority=5
 # Make the JA4_a string
 function make_a(c: connection): string
 	{
+	# one character representing the protocol where from the Hello originated
 	local proto: string = "0";
 	local trans_proto = get_port_transport_proto(c$id$resp_p);
 	if ( "QUIC" in c$service )
@@ -54,6 +55,14 @@ function make_a(c: connection): string
 	else if ( "DTLS" in c$service )
 		{
 		proto = "d";
+		}
+	else if ( "RDP" in c$service )
+		{
+		proto = "r";
+		}
+	else if ( "RDPEUDP" in c$service )
+		{
+		proto = "e";
 		}
 	else if ( trans_proto == tcp )
 		{
