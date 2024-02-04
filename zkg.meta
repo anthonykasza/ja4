@@ -1,0 +1,9 @@
+[package]
+description = An implementation of the JA4 standard in a Zeek package.
+tags = ja4, tls, ssl, fingerprint, clienthello, handshake, encryption
+script_dir = scripts
+test_command = cd testing && btest -c btest.cfg
+version = main
+config_files = scripts/config.zeek
+depends =
+  zeek >=5.0.0
