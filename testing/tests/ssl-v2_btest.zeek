@@ -3,6 +3,10 @@
 # @TEST-EXEC: btest-diff ja4.filtered
 # @TEST-EXEC: btest-diff output
 
+event my_finalize_ssl(dummy: connection) {
+  hook SSL::finalize_ssl(dummy);
+}
+
 event zeek_init() {
   local dummy: connection = [
     $uid="UUIIDD",
@@ -19,5 +23,5 @@ event zeek_init() {
   ];
 
   event ssl_client_hello(dummy, 2, 0, network_time(), "\x1c0\xe2\xb1/L\x04RTv\xf2\x80\xc0z\xbe\xe5", "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", vector(458944, 327808, 196736, 65664, 393280, 262272, 131200), vector());
-  event connection_state_remove(dummy);
+  event my_finalize_ssl(dummy);
 }

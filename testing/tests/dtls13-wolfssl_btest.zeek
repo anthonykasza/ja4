@@ -3,6 +3,10 @@
 # @TEST-EXEC: btest-diff ja4.filtered
 # @TEST-EXEC: btest-diff output
 
+event my_finalize_ssl(dummy: connection) {
+  hook SSL::finalize_ssl(dummy);
+}
+
 event zeek_init() {
   local dummy: connection = [
     $uid="UUIIDD",
@@ -26,6 +30,7 @@ event zeek_init() {
   event ssl_extension(dummy, T, 10, "\x00\x0a\x00\x19\x00\x18\x00\x17\x00\x15\x01\x00");
   event ssl_extension(dummy, T, 22, "");
   event ssl_client_hello(dummy, 65277, 65277, network_time(), "\x94\xfb6e\x8f \x88\xe6)\xd2\x92:\xd45\x88$\x16>0\xb8q_R\xb5`\xe6a\xd1", "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", vector(4865, 4866, 4867, 49196, 49195, 49200, 49199, 159, 158, 52393, 52392, 52394, 49191, 49187, 49192, 49188, 49162, 49161, 49172, 49171, 107, 103, 57, 51, 52244, 52243, 52245), vector(0));
+  event my_finalize_ssl(dummy);
   event ssl_extension_supported_versions(dummy, F, vector(65276));
   event ssl_extension(dummy, F, 43, "\xfe\xfc");
   event ssl_extension(dummy, F, 44, "\x00C h\x1e\x0d\xd7vlV?M\x9b\xf4G\xd4*\xaf\xf9\x02\x16\x7fJ\xb5)\x13r\xea\xcc,\x1c,i}3\x13\x01\xbc\x80\xbe\xf9\xeb\xf4w`\x99\xaa>\x8f@\x1f\x0fU\xb7_\x01=\xe8P\xac\x9c>\x0dK\xa4R\xee`\x95");
@@ -38,8 +43,8 @@ event zeek_init() {
   event ssl_extension(dummy, T, 10, "\x00\x0a\x00\x19\x00\x18\x00\x17\x00\x15\x01\x00");
   event ssl_extension(dummy, T, 22, "");
   event ssl_client_hello(dummy, 65277, 65277, network_time(), "\x94\xfb6e\x8f \x88\xe6)\xd2\x92:\xd45\x88$\x16>0\xb8q_R\xb5`\xe6a\xd1", "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", vector(4865, 4866, 4867, 49196, 49195, 49200, 49199, 159, 158, 52393, 52392, 52394, 49191, 49187, 49192, 49188, 49162, 49161, 49172, 49171, 107, 103, 57, 51, 52244, 52243, 52245), vector(0));
+  event my_finalize_ssl(dummy);
   event ssl_extension(dummy, F, 51, "\x00\x17\x00A\x04H\xd5\x89\x12o]\x0b\xeaJ\x14\x079uN\x89\x15\xba\x11\x87\xc1[\x87\xed\xe6)\x90;\x81jn,\xd7>~\xf8\xbe\xd7\x09p\xda\xf3\x8f\xf8]\xe4g\x85PySa\x81\xe1\x94\x91V/\xa8Y.8\xc9\x13e");
   event ssl_extension_supported_versions(dummy, F, vector(65276));
   event ssl_extension(dummy, F, 43, "\xfe\xfc");
-  event connection_state_remove(dummy);
 }

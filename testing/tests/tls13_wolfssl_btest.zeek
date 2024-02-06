@@ -3,6 +3,10 @@
 # @TEST-EXEC: btest-diff ja4.filtered
 # @TEST-EXEC: btest-diff output
 
+event my_finalize_ssl(dummy: connection) {
+  hook SSL::finalize_ssl(dummy);
+}
+
 event zeek_init() {
   local dummy: connection = [
     $uid="UUIIDD",
@@ -27,8 +31,8 @@ event zeek_init() {
   event ssl_extension(dummy, T, 10, "\x00\x0e\x00\x19\x00\x18\x00\x17\x00\x15\x00\x13\x00\x10\x01\x00");
   event ssl_extension(dummy, T, 23, "");
   event ssl_client_hello(dummy, 771, 771, network_time(), "\x93\x98S\xf7K\xb0\x84\xd6\xf5NnE\x0b\x98\x0b\xf9j1\x19\xf4\xbd[\xc8\xab\x82\xecV ", "\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", vector(4866), vector(0));
+  event my_finalize_ssl(dummy);
   event ssl_extension(dummy, F, 51, "\x00\x17\x00A\x04\xf6\xb5c\xa3\xba\x8eM\x9a\x94[\xcb\x83\xeb\x8b\xe2\x92\xb0G$t\x97$\xb0\xeb\xbbj\xb7&\xac\x9c\xc8*A&\x8au#&\xb1\x11\x8a\x09\x9d\x9fC\xb2p'\xf2$\xed\x1aq\x9b7b\xac\xfc\xb9?\xa2\xdc\x94a");
   event ssl_extension_supported_versions(dummy, F, vector(772));
   event ssl_extension(dummy, F, 43, "\x03\x04");
-  event connection_state_remove(dummy);
 }

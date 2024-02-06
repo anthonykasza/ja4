@@ -15,5 +15,4 @@ done;
 
 rm *.log;
 find . -size 0 -delete;
-
-#mv *_btest.zeek ../testing/tests
+mv *_btest.zeek ../tests

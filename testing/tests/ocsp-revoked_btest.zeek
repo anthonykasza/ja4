@@ -3,6 +3,10 @@
 # @TEST-EXEC: btest-diff ja4.filtered
 # @TEST-EXEC: btest-diff output
 
+event my_finalize_ssl(dummy: connection) {
+  hook SSL::finalize_ssl(dummy);
+}
+
 event zeek_init() {
   local dummy: connection = [
     $uid="UUIIDD",
@@ -18,8 +22,4 @@ event zeek_init() {
     $history=""
   ];
 
-  event connection_state_remove(dummy);
-  event connection_state_remove(dummy);
-  event connection_state_remove(dummy);
-  event connection_state_remove(dummy);
 }

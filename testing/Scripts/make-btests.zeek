@@ -7,7 +7,6 @@ global event_list: set[string] = set(
   "ssl_extension_supported_versions",
   "ssl_extension_signature_algorithm",
   "ssl_extension_application_layer_protocol_negotiation",
-  "connection_state_remove"
 );
 
 event zeek_init() {
@@ -15,6 +14,10 @@ event zeek_init() {
   print "# @TEST-EXEC: cat ja4.log | zeek-cut ja4 o r ro grease_hash > ja4.filtered";
   print "# @TEST-EXEC: btest-diff ja4.filtered";
   print "# @TEST-EXEC: btest-diff output";
+  print "";
+  print "event my_finalize_ssl(dummy: connection) {";
+  print "  hook SSL::finalize_ssl(dummy);";
+  print "}";
   print "";
   print "event zeek_init() {";
   print "  local dummy: connection = [";
@@ -128,4 +131,7 @@ function formatter(params: call_argument_vector): string {
 event new_event(name: string, params: call_argument_vector) {
   if (name !in event_list) { return; }
   print fmt("  event %s(%s);", name, formatter(params));
+  if (name == "ssl_client_hello") {
+    print "  event my_finalize_ssl(dummy);";
+  }
 }
