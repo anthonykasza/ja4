@@ -268,8 +268,8 @@ function set_ja4(c: connection)
 	c$ja4$done = T;
 	}
 
-# Upon expiry of the connection: do the math, log the strings
-event connection_state_remove(c: connection)
+# Do the maths, log the strings
+hook SSL::finalize_ssl(c: connection)
 	{
 	if ( ! c?$ja4 || ! c$ja4?$client_hello || ! c$ja4$client_hello?$version )
 		{
