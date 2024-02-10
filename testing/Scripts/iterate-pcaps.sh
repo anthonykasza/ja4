@@ -1,16 +1,12 @@
 
 SCRIPT_DIR="/ja4/scripts";
+declare -a PCAP_DIRS=("tls" "quic" "rdp")
 
-PCAP_DIR="/Traces/tls";
-for FULL_FN in `ls ${PCAP_DIR}/*`;
-  do FN=`echo ${FULL_FN} | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'`;
-  zeek ${SCRIPT_DIR} ./make-btests.zeek -Cr ${FULL_FN} > ${FN}_btest.zeek;
-done;
-
-PCAP_DIR="/Traces/quic";
-for FULL_FN in `ls ${PCAP_DIR}/*`;
-  do FN=`echo ${FULL_FN} | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'`;
-  zeek ${SCRIPT_DIR} ./make-btests.zeek -Cr ${FULL_FN} > ${FN}_btest.zeek;
+for PCAP_DIR in ${PCAP_DIRS[@]}; do
+  for FULL_FN in `ls /Traces/${PCAP_DIR}/*`; do
+    FN=`echo ${FULL_FN} | awk -F '/' '{print $NF}' | awk -F '.' '{print $1}'`;
+    zeek ${SCRIPT_DIR} ./make-btests.zeek -Cr ${FULL_FN} > ${FN}_btest.zeek;
+  done;
 done;
 
 rm *.log;
