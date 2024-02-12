@@ -73,29 +73,18 @@ function make_a(c: connection): string
 		proto = "u";
 		}
 
-	# 0 - No SNI
+	# 0 - No SNI, a value which is neither an IPv4 nor a domain name
 	# i - an SNI equal to the destination IP address
-	# d - neither of the above
+	# d - a valid domain name
 	local sni: string = "0";
 	if ( c$ja4$client_hello?$sni && |c$ja4$client_hello$sni| > 0 )
 		{
-		sni = "i";
-		# This doesn't actually validate that the SNI valid is a domain name.
-		#  Doing that would require checking that the string has a valid TLD, a valid number of
-		#  subdomains, only valid characters, and likely other checks too.
-		#  Consider the example SNI value of "foo.localhost", it's not a real domain but is also not an IP address
-                #
-                # Also consider the example where the SNI value is "8.8.8.8" but the responding host is using "1.1.1.1".
-                #  In this case, the SNI is indeed an IP address, but we still set the value to "d"
-                #  because the SNI doesn't match the destination IPv4.
-                #
-                # Also, consider the example where the SNI is an IPv6 address.
-                #  If the format of the IPv6 in the SNI differs from how 
-                #  Zeek would format the IPv6 address as a string, then this sets the value to "d".
-                #
-                # TODO: I feel like there are potential evasions due to the ambiguity of this value.
-                #       Ask for more clarity from the techspec
-		if ( c$ja4$client_hello$sni[0] != fmt("%s", c$id$resp_h) )
+		# TODO: test this again IPv6 addresses
+		if ( c$ja4$client_hello$sni[0] == fmt("%s", c$id$resp_h) )
+			{
+			sni = "i";
+			}
+		else if ( is_valid_fqdn(c$ja4$client_hello$sni[0]) )
 			{
 			sni = "d";
 			}

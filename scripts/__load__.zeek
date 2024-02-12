@@ -8,6 +8,7 @@ redef record connection += {
 	ja4: JA4::Info &optional;
 };
 
+@load ./utils
 @load ./constants
 @load ./client-hello
 @load ./main
