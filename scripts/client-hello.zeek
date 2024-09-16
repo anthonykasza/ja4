@@ -34,20 +34,6 @@ redef record Info += {
 	client_hello: ClientHello &default=[ ];
 };
 
-# Format the signature and hashing algorithm codes into a single value
-function make_dword(byte1: count, byte2: count): count
-	{
-	local t: table[string] of count = [ [ "0" ] = 0, [ "1" ] = 1, [ "2" ] = 2, [ "3" ] =
-	    3, [ "4" ] = 4, [ "5" ] = 5, [ "6" ] = 6, [ "7" ] = 7, [ "8" ] =
-	    8, [ "9" ] = 9, [ "a" ] = 10, [ "b" ] = 11, [ "c" ] = 12, [ "d" ] =
-	    13, [ "e" ] = 14, [ "f" ] = 15 ];
-	local b1 = to_lower(fmt("%02x", byte1));
-	local b2 = to_lower(fmt("%02x", byte2));
-	local byte1_total: count = ( t[b1[0]] * 16 * 16 * 16 ) + ( t[b1[1]] * 16 * 16 );
-	local byte2_total: count = ( t[b2[0]] * 16 ) + ( t[b2[1]] * 1 );
-	return byte1_total + byte2_total;
-	}
-
 function add_to_grease_dist(c: connection, val: count)
 	{
 	if ( val in c$ja4$client_hello$grease_dist )
@@ -75,7 +61,7 @@ event ssl_client_hello(c: connection, version: count, record_version: count,
 	for ( idx in ciphers )
 		{
 		val = ciphers[idx];
-		if ( val !in TLS_GREASE_TYPES )
+		if ( val !in TLS_GREASE_TYPES_2B )
 			{
 			no_grease_ciphers += val;
 			}
@@ -89,7 +75,7 @@ event ssl_client_hello(c: connection, version: count, record_version: count,
 	for ( idx in comp_methods )
 		{
 		val = comp_methods[idx];
-		if ( val !in TLS_GREASE_TYPES )
+		if ( val !in TLS_GREASE_TYPES_2B )
 			{
 			no_grease_comp_methods += val;
 			}
@@ -121,7 +107,7 @@ event ssl_extension(c: connection, is_client: bool, code: count, val: string)
 		{
 		c$ja4 = [ ];
 		}
-	if ( code in TLS_GREASE_TYPES )
+	if ( code in TLS_GREASE_TYPES_2B )
 		{
 		add_to_grease_dist(c, code);
 		return;
@@ -153,6 +139,16 @@ event ssl_extension_application_layer_protocol_negotiation(c: connection,
 		c$ja4$client_hello$alpns = vector();
 		}
 	c$ja4$client_hello$alpns += protocols;
+
+	for ( idx in protocols )
+		{
+		local protocol_as_string: string = to_lower(protocols[idx]);
+		if ( protocol_as_string in TLS_GREASE_TYPES_2B_STR )
+			{
+			local protocol_as_count = TLS_GREASE_TYPES_2B_STR[protocol_as_string];
+			add_to_grease_dist(c, protocol_as_count);
+			}
+		}
 	}
 
 # If the supported versions extension is present, find the largest offered version and store it
@@ -172,7 +168,7 @@ event ssl_extension_supported_versions(c: connection, is_client: bool,
 	for ( idx in versions )
 		{
 		val = versions[idx];
-		if ( val in TLS_GREASE_TYPES )
+		if ( val in TLS_GREASE_TYPES_2B )
 			{
 			add_to_grease_dist(c, val);
 			next;
@@ -210,7 +206,12 @@ event ssl_extension_signature_algorithm(c: connection, is_client: bool,
 		local val = signature_algorithms[idx];
 		local ha: count = val$HashAlgorithm;
 		local sa: count = val$SignatureAlgorithm;
-		c$ja4$client_hello$signature_algos += make_dword(ha, sa);
+		local sig_algo_hash_algo = make_dword(ha, sa);
+		c$ja4$client_hello$signature_algos += sig_algo_hash_algo;
+		if ( sig_algo_hash_algo in TLS_GREASE_TYPES_2B )
+			{
+			add_to_grease_dist(c, sig_algo_hash_algo);
+			}
 		}
 	}
 
@@ -227,4 +228,29 @@ event ssl_extension_server_name(c: connection, is_client: bool,
 		c$ja4 = [ ];
 		}
 	c$ja4$client_hello$sni = names;
+	}
+
+event ssl_extension_key_share(c: connection, is_client: bool, curves: index_vec)
+	{
+	for ( idx in curves )
+		{
+		local curve: count = curves[idx];
+		if ( curve in TLS_GREASE_TYPES_2B )
+			{
+			add_to_grease_dist(c, curve);
+			}
+		}
+	}
+
+event ssl_extension_psk_key_exchange_modes(c: connection, is_client: bool,
+    modes: index_vec)
+	{
+	for ( idx in modes )
+		{
+		local mode: count = modes[idx];
+		if ( mode in TLS_GREASE_TYPES_1B )
+			{
+			add_to_grease_dist(c, mode);
+			}
+		}
 	}
