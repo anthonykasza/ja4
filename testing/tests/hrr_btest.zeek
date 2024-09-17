@@ -42,10 +42,6 @@ event zeek_init()
 	event ssl_client_hello(dummy, 771, 769, network_time(), "7\xd4\xf5\x98\xa7\x0dij\x91r\xb2\x96\xc9hR\xc9\xda\xe4\xa3\xc9\xcakI\xd2\x02\x16h\xa1", "\x1ak\xb86\x8a\xdd\x0e(\x01[\xd6\xcc\xedd\x826\xf4\x9e$\x07\xf1\x96S\xac\x1f\xdd\x1f\xfaH\xbf\xae\xcd",
 	    vector(4866, 4867, 4865, 255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension_supported_versions(dummy, F, vector(772));
-	event ssl_extension(dummy, F, 43, "\x03\x04");
-	event ssl_extension_key_share(dummy, F, vector(23));
-	event ssl_extension(dummy, F, 51, "\x00\x17");
 	event ssl_extension(dummy, T, 11, "\x03\x00\x01\x02");
 	event ssl_extension(dummy, T, 10, "\x00\x06\x00\x15\x00\x17\x00\x18");
 	event ssl_extension(dummy, T, 35, "");
@@ -72,8 +68,4 @@ event zeek_init()
 	event ssl_client_hello(dummy, 771, 771, network_time(), "7\xd4\xf5\x98\xa7\x0dij\x91r\xb2\x96\xc9hR\xc9\xda\xe4\xa3\xc9\xcakI\xd2\x02\x16h\xa1", "\x1ak\xb86\x8a\xdd\x0e(\x01[\xd6\xcc\xedd\x826\xf4\x9e$\x07\xf1\x96S\xac\x1f\xdd\x1f\xfaH\xbf\xae\xcd",
 	    vector(4866, 4867, 4865, 255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension_key_share(dummy, F, vector(23));
-	event ssl_extension(dummy, F, 51, "\x00\x17\x00A\x04e\xfeR\xa1\x96\x86\xb5\xdd\x1d\xe1\x0cV\xf3\x80\x94\xae\x84.\xf6\x0fQ\x11\xec\x0e\x0e\xe1}9.T\xecB\x16H\x9bn\xcbb,\\x88M\x90&\xe2JB\x99\x0cDY\xf2)\xcc\xee\x0d0\xdf\xc2\xa3g\xf9c\xd8");
-	event ssl_extension_supported_versions(dummy, F, vector(772));
-	event ssl_extension(dummy, F, 43, "\x03\x04");
 	}

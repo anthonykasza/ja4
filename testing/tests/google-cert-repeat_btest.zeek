@@ -43,10 +43,6 @@ event zeek_init()
 	    49188, 49192, 107, 49187, 49191, 103, 49162, 49172, 57, 49161,
 	    49171, 51, 157, 156, 61, 60, 53, 47, 255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 23, "");
-	event ssl_extension(dummy, F, 65281, "\x00");
-	event ssl_extension(dummy, F, 11, "\x01\x00");
-	event ssl_extension(dummy, F, 35, "");
 	event ssl_extension(dummy, T, 11, "\x03\x00\x01\x02");
 	event ssl_extension(dummy, T, 10,
 	    "\x00\x0a\x00\x1d\x00\x17\x00\x1e\x00\x19\x00\x18");
@@ -74,10 +70,6 @@ event zeek_init()
 	    49188, 49192, 107, 49187, 49191, 103, 49162, 49172, 57, 49161,
 	    49171, 51, 157, 156, 61, 60, 53, 47, 255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 23, "");
-	event ssl_extension(dummy, F, 65281, "\x00");
-	event ssl_extension(dummy, F, 11, "\x01\x00");
-	event ssl_extension(dummy, F, 35, "");
 	event ssl_extension(dummy, T, 11, "\x03\x00\x01\x02");
 	event ssl_extension(dummy, T, 10,
 	    "\x00\x0a\x00\x1d\x00\x17\x00\x1e\x00\x19\x00\x18");
@@ -105,10 +97,6 @@ event zeek_init()
 	    49188, 49192, 107, 49187, 49191, 103, 49162, 49172, 57, 49161,
 	    49171, 51, 157, 156, 61, 60, 53, 47, 255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 23, "");
-	event ssl_extension(dummy, F, 65281, "\x00");
-	event ssl_extension(dummy, F, 11, "\x01\x00");
-	event ssl_extension(dummy, F, 35, "");
 	event ssl_extension(dummy, T, 11, "\x03\x00\x01\x02");
 	event ssl_extension(dummy, T, 10,
 	    "\x00\x0a\x00\x1d\x00\x17\x00\x1e\x00\x19\x00\x18");
@@ -136,10 +124,6 @@ event zeek_init()
 	    49188, 49192, 107, 49187, 49191, 103, 49162, 49172, 57, 49161,
 	    49171, 51, 157, 156, 61, 60, 53, 47, 255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 23, "");
-	event ssl_extension(dummy, F, 65281, "\x00");
-	event ssl_extension(dummy, F, 11, "\x01\x00");
-	event ssl_extension(dummy, F, 35, "");
 	event ssl_extension_server_name(dummy, T, vector("www.google.com"));
 	event ssl_extension(dummy, T, 0, "\x00\x11\x00\x00\x0ewww.google.com");
 	event ssl_extension(dummy, T, 11, "\x03\x00\x01\x02");
@@ -169,10 +153,6 @@ event zeek_init()
 	    49188, 49192, 107, 49187, 49191, 103, 49162, 49172, 57, 49161,
 	    49171, 51, 157, 156, 61, 60, 53, 47, 255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 23, "");
-	event ssl_extension(dummy, F, 65281, "\x00");
-	event ssl_extension(dummy, F, 11, "\x01\x00");
-	event ssl_extension(dummy, F, 35, "");
 	event ssl_extension_server_name(dummy, T, vector("www.google.com"));
 	event ssl_extension(dummy, T, 0, "\x00\x11\x00\x00\x0ewww.google.com");
 	event ssl_extension(dummy, T, 11, "\x03\x00\x01\x02");
@@ -202,10 +182,6 @@ event zeek_init()
 	    49188, 49192, 107, 49187, 49191, 103, 49162, 49172, 57, 49161,
 	    49171, 51, 157, 156, 61, 60, 53, 47, 255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 23, "");
-	event ssl_extension(dummy, F, 65281, "\x00");
-	event ssl_extension(dummy, F, 11, "\x01\x00");
-	event ssl_extension(dummy, F, 35, "");
 	event ssl_extension_server_name(dummy, T, vector("www.google.com"));
 	event ssl_extension(dummy, T, 0, "\x00\x11\x00\x00\x0ewww.google.com");
 	event ssl_extension(dummy, T, 11, "\x03\x00\x01\x02");
@@ -235,10 +211,6 @@ event zeek_init()
 	    49188, 49192, 107, 49187, 49191, 103, 49162, 49172, 57, 49161,
 	    49171, 51, 157, 156, 61, 60, 53, 47, 255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 23, "");
-	event ssl_extension(dummy, F, 65281, "\x00");
-	event ssl_extension(dummy, F, 11, "\x01\x00");
-	event ssl_extension(dummy, F, 35, "");
 	event ssl_extension_server_name(dummy, T, vector("www.google.com"));
 	event ssl_extension(dummy, T, 0, "\x00\x11\x00\x00\x0ewww.google.com");
 	event ssl_extension(dummy, T, 11, "\x03\x00\x01\x02");
@@ -268,8 +240,4 @@ event zeek_init()
 	    49188, 49192, 107, 49187, 49191, 103, 49162, 49172, 57, 49161,
 	    49171, 51, 157, 156, 61, 60, 53, 47, 255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 23, "");
-	event ssl_extension(dummy, F, 65281, "\x00");
-	event ssl_extension(dummy, F, 11, "\x01\x00");
-	event ssl_extension(dummy, F, 35, "");
 	}

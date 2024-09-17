@@ -55,9 +55,4 @@ event zeek_init()
 	    145, 53, 175, 141, 49207, 49205, 182, 178, 148, 144, 47, 174, 140,
 	    255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension_supported_versions(dummy, F, vector(772));
-	event ssl_extension(dummy, F, 43, "\x03\x04");
-	event ssl_extension_key_share(dummy, F, vector(29));
-	event ssl_extension(dummy, F, 51, "\x00\x1d\x00 \x05\x944u\xc0\xf2\xadw\xf5\xa4\xd7\xb3I\xa7Z)\xa0'\x92~O\x7f\xde\x83#\xdb\xc56\xa1\x93\x0b\x0e");
-	event ssl_extension(dummy, F, 41, "\x00\x00");
 	}

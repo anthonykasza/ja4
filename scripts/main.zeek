@@ -243,7 +243,7 @@ function set_ja4(c: connection)
 	# ja4_o
 	c$ja4$o = ja4_a;
 	c$ja4$o += delimiter;
-	c$ja4$o += trunc_sha256(vector_of_count_to_str(( ja4_b )));
+	c$ja4$o += trunc_sha256(vector_of_count_to_str(ja4_b));
 	c$ja4$o += delimiter;
 	c$ja4$o += trunc_sha256(ja4_c);
 

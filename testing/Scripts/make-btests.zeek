@@ -137,10 +137,20 @@ function formatter(params: call_argument_vector): string
 
 event new_event(name: string, params: call_argument_vector)
 	{
+	# filter events to only those of interest
 	if ( name !in event_list )
 		{
 		return;
 		}
+	# filter events from the responder
+	if ( |params| > 1
+	    && params[1]$type_name == "bool"
+	    && ( ( params[1]$value as bool ) == F )
+	    && ( params[1]$name == "is_client" || params[1]$name == "is_orig" || params[1]$name == "orig" ) )
+		{
+		return;
+		}
+
 	print fmt("  event %s(%s);", name, formatter(params));
 	if ( name == "ssl_client_hello" )
 		{

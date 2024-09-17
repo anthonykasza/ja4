@@ -40,9 +40,6 @@ event zeek_init()
 	    52393, 52392, 52394, 49191, 49187, 49192, 49188, 49162, 49161,
 	    49172, 49171, 107, 103, 57, 51, 52244, 52243, 52245), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension_supported_versions(dummy, F, vector(65276));
-	event ssl_extension(dummy, F, 43, "\xfe\xfc");
-	event ssl_extension(dummy, F, 44, "\x00C h\x1e\x0d\xd7vlV?M\x9b\xf4G\xd4*\xaf\xf9\x02\x16\x7fJ\xb5)\x13r\xea\xcc,\x1c,i}3\x13\x01\xbc\x80\xbe\xf9\xeb\xf4w`\x99\xaa>\x8f@\x1f\x0fU\xb7_\x01=\xe8P\xac\x9c>\x0dK\xa4R\xee`\x95");
 	event ssl_extension_supported_versions(dummy, T, vector(65276));
 	event ssl_extension(dummy, T, 43, "\x02\xfe\xfc");
 	event ssl_extension(dummy, T, 44, "\x00C h\x1e\x0d\xd7vlV?M\x9b\xf4G\xd4*\xaf\xf9\x02\x16\x7fJ\xb5)\x13r\xea\xcc,\x1c,i}3\x13\x01\xbc\x80\xbe\xf9\xeb\xf4w`\x99\xaa>\x8f@\x1f\x0fU\xb7_\x01=\xe8P\xac\x9c>\x0dK\xa4R\xee`\x95");
@@ -68,8 +65,4 @@ event zeek_init()
 	    52393, 52392, 52394, 49191, 49187, 49192, 49188, 49162, 49161,
 	    49172, 49171, 107, 103, 57, 51, 52244, 52243, 52245), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension_key_share(dummy, F, vector(23));
-	event ssl_extension(dummy, F, 51, "\x00\x17\x00A\x04H\xd5\x89\x12o]\x0b\xeaJ\x14\x079uN\x89\x15\xba\x11\x87\xc1[\x87\xed\xe6)\x90;\x81jn,\xd7>~\xf8\xbe\xd7\x09p\xda\xf3\x8f\xf8]\xe4g\x85PySa\x81\xe1\x94\x91V/\xa8Y.8\xc9\x13e");
-	event ssl_extension_supported_versions(dummy, F, vector(65276));
-	event ssl_extension(dummy, F, 43, "\xfe\xfc");
 	}

@@ -48,9 +48,6 @@ event zeek_init()
 	    vector(4865, 4867, 4866, 49195, 49199, 52393, 52392, 49196, 49200,
 	    49162, 49161, 49171, 49172, 51, 57, 47, 53, 10), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 13, "");
-	event ssl_extension_key_share(dummy, F, vector(24));
-	event ssl_extension(dummy, F, 40, "\x00\x18\x00a\x04{o\xc2\xde\xe0\\xac\xeea[(\x03\xab\xc8o\x02\x04\x12\x85\x02\xc3\x88b\x7f\xc1\xe9\xf9@73V\xc5_\xab\xeb1Q:l\x96\xce\xb6\xde\xad`\xe5SuP?d\xe4)\xf0{H\xee\x0e\xd5h\x04\x17\xc9QU7\xc22F\xe9%\xcd\xb1\xd6-\xb3g\x1a\x9b\xefd\xd83Z-\x06\xc9\xe5}\x1c\xb4H\xef\x9cN\x02");
 	event ssl_extension(dummy, T, 23, "");
 	event ssl_extension(dummy, T, 65281, "\x00");
 	event ssl_extension(dummy, T, 10,
@@ -83,7 +80,4 @@ event zeek_init()
 	    vector(4865, 4867, 4866, 49195, 49199, 52393, 52392, 49196, 49200,
 	    49162, 49161, 49171, 49172, 51, 57, 47, 53, 10), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 13, "");
-	event ssl_extension_key_share(dummy, F, vector(24));
-	event ssl_extension(dummy, F, 40, "\x00\x18\x00a\x04\xe1\xb8%$b}\xd1V\x12n\xb5_1\xe8\xb37\x08?\xd5\xd1\xc9\xd0[|\x96\xcf\xf7\xf7'+9\xbb\x19\xdb\xef\xbc\xe7y\x08\x1c\xebM\x98\x11j\xdfM\xf4W\x11\xd8\xc0q7\x15\xc8\xa5\xd8]\xb6\xf8\xa3\xd3\xa4\x94\xebR\xcb_n\xf7\xf7\x1a+\xc3 \xb5J94)\xdc\xae\xffy'\xd0Cxc\xdf\xce\xa0Z\x95W");
 	}

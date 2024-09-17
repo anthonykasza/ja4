@@ -42,18 +42,4 @@ event zeek_init()
 	    49170, 49160, 22, 19, 16, 13, 49165, 49155, 10, 21, 18, 15, 12, 9,
 	    255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 65281, "\x00");
-	event ssl_extension(dummy, F, 35, "");
-	event ssl_extension(dummy, F, 15, "\x01");
-	event ssl_extension_signature_algorithm(dummy, F, vector([ $HashAlgorithm=6,
-	    $SignatureAlgorithm=1 ], [ $HashAlgorithm=6, $SignatureAlgorithm=2
-	    ], [ $HashAlgorithm=6, $SignatureAlgorithm=3 ], [ $HashAlgorithm=5,
-	    $SignatureAlgorithm=1 ], [ $HashAlgorithm=5, $SignatureAlgorithm=2
-	    ], [ $HashAlgorithm=5, $SignatureAlgorithm=3 ], [ $HashAlgorithm=4,
-	    $SignatureAlgorithm=1 ], [ $HashAlgorithm=4, $SignatureAlgorithm=2
-	    ], [ $HashAlgorithm=4, $SignatureAlgorithm=3 ], [ $HashAlgorithm=3,
-	    $SignatureAlgorithm=1 ], [ $HashAlgorithm=3, $SignatureAlgorithm=2
-	    ], [ $HashAlgorithm=3, $SignatureAlgorithm=3 ], [ $HashAlgorithm=2,
-	    $SignatureAlgorithm=1 ], [ $HashAlgorithm=2, $SignatureAlgorithm=2
-	    ], [ $HashAlgorithm=2, $SignatureAlgorithm=3 ]));
 	}

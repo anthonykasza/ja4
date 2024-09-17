@@ -49,10 +49,4 @@ event zeek_init()
 	    49195, 49199, 158, 49188, 49192, 107, 49187, 49191, 103, 49162,
 	    49172, 57, 49161, 49171, 51, 157, 156, 61, 60, 53, 47, 255), vector(0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 65281, "\x00");
-	event ssl_extension(dummy, F, 11, "\x03\x00\x01\x02");
-	event ssl_extension(dummy, F, 35, "");
-	event ssl_extension(dummy, F, 23, "");
-	event ssl_extension_signature_algorithm(dummy, F, vector([ $HashAlgorithm=4,
-	    $SignatureAlgorithm=1 ]));
 	}

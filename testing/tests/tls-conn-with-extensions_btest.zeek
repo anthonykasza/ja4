@@ -29,9 +29,4 @@ event zeek_init()
 	    49156, 150, 65, 4, 5, 47, 49160, 49170, 22, 19, 49165, 49155, 65279,
 	    10), vector(1, 0));
 	event my_finalize_ssl(dummy);
-	event ssl_extension(dummy, F, 0, "");
-	event ssl_extension(dummy, F, 65281, "\x00");
-	event ssl_extension(dummy, F, 11, "\x03\x00\x01\x02");
-	event ssl_extension(dummy, F, 35, "");
-	event ssl_extension(dummy, F, 13172, "\x06spdy/2\x08http/1.1");
 	}
