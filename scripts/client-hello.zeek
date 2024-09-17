@@ -81,6 +81,7 @@ event ssl_client_hello(c: connection, version: count, record_version: count,
 			}
 		else
 			{
+			# Consider raising a notice or remove this check
 			add_to_grease_dist(c, val);
 			}
 		}
@@ -138,8 +139,9 @@ event ssl_extension_application_layer_protocol_negotiation(c: connection,
 		{
 		c$ja4$client_hello$alpns = vector();
 		}
-	c$ja4$client_hello$alpns += protocols;
 
+	# Check for GREASE and only incorporate non-reserved values
+	local more_protocols: vector of string = vector();
 	for ( idx in protocols )
 		{
 		local protocol_as_string: string = to_lower(protocols[idx]);
@@ -148,7 +150,12 @@ event ssl_extension_application_layer_protocol_negotiation(c: connection,
 			local protocol_as_count = TLS_GREASE_TYPES_2B_STR[protocol_as_string];
 			add_to_grease_dist(c, protocol_as_count);
 			}
+		else
+			{
+			more_protocols += protocol_as_string;
+			}
 		}
+	c$ja4$client_hello$alpns += more_protocols;
 	}
 
 # If the supported versions extension is present, find the largest offered version and store it
@@ -168,6 +175,7 @@ event ssl_extension_supported_versions(c: connection, is_client: bool,
 	for ( idx in versions )
 		{
 		val = versions[idx];
+		# Check all versions for GREASE
 		if ( val in TLS_GREASE_TYPES_2B )
 			{
 			add_to_grease_dist(c, val);
@@ -206,11 +214,14 @@ event ssl_extension_signature_algorithm(c: connection, is_client: bool,
 		local val = signature_algorithms[idx];
 		local ha: count = val$HashAlgorithm;
 		local sa: count = val$SignatureAlgorithm;
-		local sig_algo_hash_algo = make_dword(ha, sa);
-		c$ja4$client_hello$signature_algos += sig_algo_hash_algo;
-		if ( sig_algo_hash_algo in TLS_GREASE_TYPES_2B )
+		local ha_sa_bytes = make_dword(ha, sa);
+		if ( ha_sa_bytes in TLS_GREASE_TYPES_2B )
 			{
-			add_to_grease_dist(c, sig_algo_hash_algo);
+			add_to_grease_dist(c, ha_sa_bytes);
+			}
+		else
+			{
+			c$ja4$client_hello$signature_algos += ha_sa_bytes;
 			}
 		}
 	}
@@ -230,8 +241,17 @@ event ssl_extension_server_name(c: connection, is_client: bool,
 	c$ja4$client_hello$sni = names;
 	}
 
+# GREASE checks
 event ssl_extension_key_share(c: connection, is_client: bool, curves: index_vec)
 	{
+	if ( ! is_client )
+		{
+		return;
+		}
+	if ( ! c?$ja4 )
+		{
+		c$ja4 = [ ];
+		}
 	for ( idx in curves )
 		{
 		local curve: count = curves[idx];
@@ -242,9 +262,18 @@ event ssl_extension_key_share(c: connection, is_client: bool, curves: index_vec)
 		}
 	}
 
+# GREASE checks
 event ssl_extension_psk_key_exchange_modes(c: connection, is_client: bool,
     modes: index_vec)
 	{
+	if ( ! is_client )
+		{
+		return;
+		}
+	if ( ! c?$ja4 )
+		{
+		c$ja4 = [ ];
+		}
 	for ( idx in modes )
 		{
 		local mode: count = modes[idx];
